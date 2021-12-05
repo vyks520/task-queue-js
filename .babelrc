@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": {
+          "version": "3.8.3"
+        },
+        "targets": {
+          "node": "4",
+          "chrome": "37",
+          "ie": "8"
+        }
+      }
+    ],
+    "@babel/preset-typescript"
+  ]
+}

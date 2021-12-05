@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>example2</title>
+    <script src="../dist/es5/task-queue-min.js"></script>
+</head>
+<body id="app">
+<script>
+  var taskQueue = new TaskQueue();
+  var aw = taskQueue.await;
+
+  var bodyEl = document.getElementById('app');
+
+  if (bodyEl) {
+    var resData = [];
+
+    // 异步API
+    aw(function (next) {
+      bodyEl.innerText = '数据加载中...';
+      setTimeout(function () {
+        resData = [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}];
+        next();
+      }, 3000);
+    });
+
+    // 结果处理
+    aw(function () {
+      bodyEl.innerText = '';
+      resData.forEach(function (item) {
+        var divEl = document.createElement('div');
+        divEl.innerText = '姓名：' + item.name;
+        bodyEl.append(divEl);
+      });
+    });
+
+    aw(function () {
+      taskQueue.close();
+    });
+  }
+</script>
+</body>
+</html>
